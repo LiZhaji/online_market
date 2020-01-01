@@ -42,7 +42,14 @@ export default {
       };
       fetch("post", "/user/login", params)
         .then(data => {
-          localStorage.setItem("userId", data.user_id);
+          fetch("get", `/user/info/${data.user_id}`).then(data => {
+            this.$store.state.nickname = data.nickname;
+            localStorage.setItem("nickname", data.nickname);
+          });
+          this.$store.state.needLogin = false;
+          this.$store.state.userId = data.user_id;
+          localStorage.setItem("needLogin", false);
+
           this.$router.replace("/homepage");
         })
         .catch(err => {

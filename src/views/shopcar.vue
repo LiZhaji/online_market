@@ -90,7 +90,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["baseImgUrl"]),
+    ...mapState(["baseImgUrl",'userId']),
     selectedIds() {
       return this.selectedProduct.map(item => item.id);
     }
@@ -100,8 +100,8 @@ export default {
   },
   methods: {
     getList() {
-      const userId = localStorage.getItem("userId");
-      http("get", `/cart/list/${userId}`).then(data => {
+      // const userId = localStorage.getItem("userId");
+      http("get", `/cart/list/${this.userId}`).then(data => {
         this.tableData = data;
       });
     },
@@ -114,11 +114,11 @@ export default {
         type === "down" ? count-- : type === "up" ? count++ : "";
       }
 
-      const userId = localStorage.getItem("userId");
+      // const userId = localStorage.getItem("userId");
       const data = {
         modified_amount: count,
         product_id: product.product_id,
-        user_id: userId
+        user_id: this.userId
       };
       http("post", "/cart/modify", data).then(data => {
         this.getList();

@@ -9,6 +9,7 @@ import detail from '../views/detail'
 import shopcar from "../views/shopcar";
 import personal from "../views/personal";
 import pay from "../views/pay";
+import activity from "../views/activity";
 
 import login from '../views/login'
 import register from '../views/register'
@@ -61,6 +62,11 @@ export default new Router({
     {
       path: '/pay',
       component: pay
+    },
+    {
+      path: '/activity',
+      name: 'activity',
+      component: activity
     }
   ]
 })

@@ -79,7 +79,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["baseImgUrl"])
+    ...mapState(["baseImgUrl",'userId'])
   },
   mounted() {
     const id = this.$route.params.id;
@@ -105,11 +105,11 @@ export default {
       type === "down" ? this.count-- : type === "up" ? this.count++ : "";
     },
     addToCar() {
-      const userId = localStorage.getItem("userId");
+      // const userId = localStorage.getItem("userId");
       const data = {
         add_amount: this.count,
         product_id: this.product.product_id,
-        user_id: userId
+        user_id: this.userId
       };
       http("post", "/cart", data).then(data => {
         this.$message({

@@ -46,10 +46,9 @@ export default {
         email: this.email
       }
       fetch('post', '/user/register', params).then(res => {
-        console.log(res);
-        
         if (res.data.success) {
           console.log('注册成功！');
+          localStorage.setItem(" needLogin", false);
           this.$router.replace('/homepage')
         }
       })
