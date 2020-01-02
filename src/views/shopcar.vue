@@ -194,7 +194,10 @@ export default {
         });
     },
     check() {
-      this.$router.push("/pay");
+      this.$router.push({
+        name:'pay',
+        query:{data:this.tableData}
+      });
     }
   }
 };

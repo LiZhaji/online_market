@@ -8,145 +8,134 @@
         <div class="send-tip">
           <span>寄送至</span>
         </div>
-        <div class="each-address selected">
-          <label aria-checked="true" class="address-contents checked">
-            <input name="address" type="radio" aria-checked="true" checked />
-            <span class="addr-info">
-              <span class="provinceName">浙江省</span>
-              <span class="cityName">杭州市</span>
-              <span class="areaName">余杭区</span>
-              <span class="townName">五常街道</span>
-              <span class="addressDetail">余杭区文一西路969号六号楼</span>（leeex 收）
-              <span class="mobile">18513127639</span>
-            </span>
-          </label>
-        </div>
-        <div class="each-address">
-          <label aria-checked="false" class="address-contents">
-            <input name="address" type="radio" aria-checked="false" />
-            <span class="addr-info">
-              <span class="provinceName">浙江省</span>
-              <span class="cityName">杭州市</span>
-              <span class="areaName">西湖区</span>
-              <span class="townName">翠苑街道</span>
-              <span class="addressDetail">翠苑新村2区2幢2单元</span>（炸鸡 收）
-              <span class="mobile">18732324603</span>
-            </span>
-          </label>
-        </div>
-        <div class="each-address">
-          <label aria-checked="false" class="address-contents">
-            <input name="address" type="radio" aria-checked="false" />
-            <span class="addr-info">
-              <span class="provinceName">浙江省</span>
-              <span class="cityName">杭州市</span>
-              <span class="areaName">西湖区</span>
-              <span class="townName">翠苑街道</span>
-              <span class="addressDetail">翠苑新村2区2幢2单元</span>（炸鸡 收）
-              <span class="mobile">18732324603</span>
-            </span>
-          </label>
+        <div>
+          <el-radio-group v-model="radio">
+            <el-row style="padding-bottom: 10px">
+              <el-col :offset="3">
+                <el-radio :label="1">浙江省 杭州市 西湖区 翠苑街道 翠苑新村2区2幢2单元（炸鸡 收）18732324603</el-radio>
+              </el-col>
+            </el-row>
+            <el-row style="margin-top: 10px">
+              <el-col :offset="3">
+                <el-radio :label="2">浙江省 杭州市 江干区 浙江理工大学（可乐 收）18732324603</el-radio>
+              </el-col>
+            </el-row>
+            <el-row style="margin-top: 20px">
+              <el-col :offset="3">
+                <el-radio :label="3">浙江省 杭州市 江干区 浙江理工大学生活二区（薯条 收）18732324603</el-radio>
+              </el-col>
+            </el-row>
+          </el-radio-group>
         </div>
       </div>
     </div>
-
+    <div style="margin-top: 20px">
+      <div class="send-tip">
+        <span style="color: #f40;line-height: 26px;margin-right: 18px;font-weight: 700;">支付方式</span>
+      </div>
+      <div style="margin-left: 70px">
+        <el-radio label="1" border v-model="pay_method">余额</el-radio>
+        <el-radio label="2" border v-model="pay_method">微信</el-radio>
+        <el-radio label="3" border v-model="pay_method">支付宝</el-radio>
+      </div>
+    </div>
     <div class="item-headers">
       <div class="header-wrapper">
         <span class="header-title">确认订单信息</span>
       </div>
-      <div class="item-headers-wrap item-headers-column-6">
-        <div class="item-cloumn item-cloumn-0">商品信息</div>
-        <div class="item-cloumn item-cloumn-1">商品属性</div>
-        <div class="item-cloumn item-cloumn-2">单价</div>
-        <div class="item-cloumn item-cloumn-3">数量</div>
-        <div class="item-cloumn item-cloumn-5">小计</div>
+      <div class="dtrolley">
+        <el-table
+          ref="multipleTable"
+          :data="tableData"
+          style="width: 100%"
+        >
+          <el-table-column label="商品名称">
+            <template slot-scope="scope">
+              <img :src="baseImgUrl + scope.row.image_url" alt />
+              {{scope.row.product_name}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="price" label="商品单价(元)"></el-table-column>
+          <el-table-column label="数量" width="160" prop="add_amount"  show-overflow-tooltip>
+          </el-table-column>
+          <el-table-column label="小计(元)" show-overflow-tooltip >
+            <template slot-scope="scope">{{scope.row.price * scope.row.add_amount}}</template>
+          </el-table-column>
+        </el-table>
       </div>
+
     </div>
-
-    <div class="clearfix">
-        <div class="item-row">
-          <div class="cell info-detail">
-            <img
-              class="info-img"
-              src="//img.alicdn.com/imgextra/i2/43650797/O1CN01Hzbp0v1Hl4EVtoNth_!!43650797.jpg_100x100q90.jpg"
-            />
-            <div class="cell info-msg">可爱创意精美书签夹</div>
-          </div>
-          <div class="cell info-sku">颜色分类：酒红色[5个装]</div>
-          <div class="cell info-price">32.50</div>
-          <div class="cell order-quantity">1</div>
-          <div class="cell order-price price">89.00</div>
-        </div>
-        <div class="item-row">
-          <div class="cell info-detail">
-            <img
-              class="info-img"
-              src="//img.alicdn.com/imgextra/i2/43650797/O1CN01Hzbp0v1Hl4EVtoNth_!!43650797.jpg_100x100q90.jpg"
-            />
-            <div class="cell info-msg">可爱创意精美书签夹</div>
-          </div>
-          <div class="cell info-sku">颜色分类：酒红色[5个装]</div>
-          <div class="cell info-price">32.50</div>
-          <div class="cell order-quantity">1</div>
-          <div class="cell order-price price">89.00</div>
-        </div>
-        <div class="item-row">
-          <div class="cell info-detail">
-            <img
-              class="info-img"
-              src="//img.alicdn.com/imgextra/i2/43650797/O1CN01Hzbp0v1Hl4EVtoNth_!!43650797.jpg_100x100q90.jpg"
-            />
-            <div class="cell info-msg">可爱创意精美书签夹</div>
-          </div>
-          <div class="cell info-sku">颜色分类：酒红色[5个装]</div>
-          <div class="cell info-price">32.50</div>
-          <div class="cell order-quantity">1</div>
-          <div class="cell order-price price">89.00</div>
-        </div>
-        <div class="textarea">
-          <label class="textarea_title">备注：</label>
-          <textarea class="textarea_input" placeholder="选填,请先和商家协商一致" maxlength="200"></textarea>
-        </div>
-        <div class="delivery border-bottom">
-          <span class="delivery_title">运送方式：</span>
-          <span>普通配送 快递 自费</span>
-          <span class="delivery_price price">10.00</span>
-        </div>
-
-      <div class="total">
-        <span>合计(含运费)</span>
-        <span class="price">￥189.00</span>
-      </div>
-    </div>
-
     <div class="end">
       <div class="realpay">
         <div>
           <span class="realpay_title">实付款：</span>
           <span class="realpay_symbol price">¥</span>
-          <span class="realpay_price price">189.00</span>
+          <span class="realpay_price price">{{sum}}</span>
         </div>
         <div>
           <span class="realpay_title">寄送至：</span>
-          <span class="confirmAddr">浙江省 杭州市 余杭区 五常街道 余杭区文一西路969号六号楼</span>
+          <span class="confirmAddr" v-if="radio == 1">浙江省 杭州市 西湖区 翠苑街道 翠苑新村2区2幢2单元</span>
+          <span class="confirmAddr" v-if="radio == 2">浙江省 杭州市 江干区 浙江理工大学</span>
+          <span class="confirmAddr" v-if="radio == 3">浙江省 杭州市 江干区 浙江理工大学生活二区</span>
         </div>
         <div>
           <span class="realpay_title">收货人：</span>
-          <span class="confirmAddr">leeex 1851365339</span>
+          <span class="confirmAddr" v-if="radio == 1">炸鸡 1851365339</span>
+          <span class="confirmAddr" v-if="radio == 2">可乐 1851365339</span>
+          <span class="confirmAddr" v-if="radio == 3">薯条 1851365339</span>
         </div>
       </div>
       <div class="submit">
-        <a role="button" title="提交订单">确认支付</a>
+        <a role="button" title="提交订单" @click="submit">确认支付</a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+  import { mapState } from "vuex";
+  export default {
+  data(){
+    return{
+      tableData:[],
+      radio: 1,
+      pay_method: '1',
+      sum: 0,
+
+    }
+  },
+  computed: {
+    ...mapState(["baseImgUrl"])
+  },
+  mounted() {
+    this.init();
+  },
+  methods:{
+    init() {
+        if (this.$route.hasOwnProperty('query') && this.$route.query.hasOwnProperty('data')) {
+          this.tableData = this.$route.query.data;
+          this.tableData.forEach((item)=>{
+            this.sum += item.price * item.add_amount
+          })
+        }
+    },
+    submit(){
+      this.$message({
+        message: "支付成功！",
+        type: "success"
+      });
+    }
+
+  }
+
+};
 </script>
 
 <style>
+  .dtrolley img {
+    width: 60px;
+    height: 60px;
+  }
 .clearfix::after {
   content: "";
   display: block;
@@ -343,6 +332,7 @@ export default {};
   font-size: 12px;
 }
 .submit {
+  margin-top: 10px;
   margin-left: 300px;
   padding: 10px 25px;
   background: #f13c3cd9;

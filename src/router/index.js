@@ -9,9 +9,9 @@ import detail from '../views/detail'
 import shopcar from "../views/shopcar";
 import personal from "../views/personal";
 import pay from "../views/pay";
-
 import login from '../views/login'
 import register from '../views/register'
+import dialog from '../views/personal-dialog'
 
 Vue.use(Router)
 
@@ -60,7 +60,12 @@ export default new Router({
     },
     {
       path: '/pay',
+      name: 'pay',
       component: pay
+    },
+    {
+      path: '/personal-dialog',
+      component: dialog
     }
   ]
 })

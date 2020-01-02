@@ -75,7 +75,7 @@
           <span class="con">0</span>
         </div>
         <div class="avatar">
-          <img src="../assets/h144.jpeg" alt="avatar" />
+          <img src="../assets/h144.jpeg" alt="avatar"  />
         </div>
       </div>
     </div>
