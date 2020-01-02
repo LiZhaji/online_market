@@ -17,6 +17,9 @@ module.exports = {
         pathRewrite: {
           '^/': ''
         }
+      },
+      'ashop':{
+        target: 'http://wuweijie.net:8888/'
       }
     },
 

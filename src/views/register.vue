@@ -29,29 +29,25 @@
 <script>
 import fetch from "../http/index";
 export default {
-  data(){
-    return{
-      name: 'lyj',
-      psw: '123456',
-      nickname: 'zhaji',
-      email: '12121212@qq.com'
-    }
+  data() {
+    return {
+      name: "lyj",
+      psw: "123456",
+      nickname: "zhaji",
+      email: "12121212@qq.com"
+    };
   },
-  methods:{
-    register(){
+  methods: {
+    register() {
       const params = {
         login_name: this.name,
         password: this.psw,
         nickname: this.nickname,
         email: this.email
-      }
-      fetch('post', '/user/register', params).then(res => {
-        if (res.data.success) {
-          console.log('注册成功！');
-          localStorage.setItem(" needLogin", false);
-          this.$router.replace('/homepage')
-        }
-      })
+      };
+      fetch("post", "/user/register", params).then(res => {
+        this.$router.replace("/login");
+      });
     }
   }
 };

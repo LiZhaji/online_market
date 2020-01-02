@@ -75,13 +75,9 @@
             </div>
           </div>
           <div>
-            {{nickname}}
+            <span @click="$router.push('/personal')" style="cursor:pointer;">{{nickname}}</span> 
             <span @click="loginout" style="color: #229ac1;cursor:pointer;margin-left:10px;">退出</span>
           </div>
-          <span class="con">0</span>
-        </div>
-        <div class="avatar">
-          <img src="../assets/h144.jpeg" alt="avatar" @click="$router.push('/personal')" />
         </div>
       </div>
     </div>
