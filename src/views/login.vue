@@ -47,8 +47,10 @@ export default {
             localStorage.setItem("nickname", data.nickname);
           });
           this.$store.state.needLogin = false;
-          this.$store.state.userId = data.user_id;
           localStorage.setItem("needLogin", false);
+          
+          this.$store.state.userId = data.user_id;
+          localStorage.setItem("userId", data.user_id);
 
           this.$router.replace("/homepage");
         })

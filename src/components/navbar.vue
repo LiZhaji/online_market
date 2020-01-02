@@ -106,12 +106,10 @@ export default {
         status: ""
       },
       products: [],
-      totalPrice: 0,
-      totalCount: 0
     };
   },
   computed: {
-    ...mapState(["baseImgUrl", "nickname", "needLogin",'userId'])
+    ...mapState(["baseImgUrl", "nickname", "needLogin",'userId','totalPrice','totalCount'])
   },
   mounted() {
     this.getCategory(0, 0);
@@ -126,16 +124,19 @@ export default {
       this.$router.push('./login')
     },
     getCarList() {
-      // const userId = localStorage.getItem("userId");
-      http("get", `/cart/list/${this.userId}`).then(data => {
-        this.totalPrice = data.reduce(
+      const userId = localStorage.getItem("userId");
+      http("get", `/cart/list/${userId}`).then(data => {
+        const totalPrice = data.reduce(
           (price, product) => (price += product.price * product.add_amount),
           0
         );
-        this.totalCount = data.reduce(
+        const totalCount = data.reduce(
           (count, product) => (count += product.add_amount),
           0
         );
+
+        this.$store.state.totalPrice = totalPrice
+        this.$store.state.totalCount = totalCount
       });
     },
     getCategory(curLevel, item) {

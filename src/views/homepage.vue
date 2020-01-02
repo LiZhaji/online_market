@@ -25,12 +25,12 @@
       </el-carousel>
     </div>-->
     <!-- 促销 -->
-    <div class="d2" @click="toActicity">
+    <div class="d2">
       <p class="p1">
         <a>{{promotionActivities[0].activity_name}}</a>
       </p>
       <p class="p2">{{promotionActivities[0].description}}</p>
-      <div class="d21">
+      <div class="d21" @click="toActicity">
         <div class="a21 imgOuter">
           <img :src="baseImgUrl + promotionImgs[0]" alt class="img21" />
         </div>

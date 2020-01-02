@@ -90,7 +90,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["baseImgUrl",'userId']),
+    ...mapState(["baseImgUrl", "userId"]),
     selectedIds() {
       return this.selectedProduct.map(item => item.id);
     }
@@ -100,8 +100,8 @@ export default {
   },
   methods: {
     getList() {
-      // const userId = localStorage.getItem("userId");
-      http("get", `/cart/list/${this.userId}`).then(data => {
+      const userId = localStorage.getItem("userId");
+      http("get", `/cart/list/${userId}`).then(data => {
         this.tableData = data;
       });
     },
@@ -114,14 +114,15 @@ export default {
         type === "down" ? count-- : type === "up" ? count++ : "";
       }
 
-      // const userId = localStorage.getItem("userId");
+      const userId = localStorage.getItem("userId");
       const data = {
         modified_amount: count,
         product_id: product.product_id,
-        user_id: this.userId
+        user_id: userId
       };
       http("post", "/cart/modify", data).then(data => {
         this.getList();
+        this.getCarList();
       });
     },
     handleSelectionChange(val) {
@@ -143,7 +144,7 @@ export default {
       );
       console.log(val);
     },
-    delProduct() {
+    delProduct(product) {
       this.$confirm("确定从购物车删除该商品吗?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -157,6 +158,7 @@ export default {
                 type: "success"
               });
               this.getList();
+              this.getCarList();
             })
             .catch(err => {
               console.log(err);
@@ -177,13 +179,14 @@ export default {
         type: "warning"
       })
         .then(() => {
-          http("delete", `/cart/deleteBatch`, {ids: this.selectedIds})
+          http("delete", `/cart/deleteBatch`, { ids: this.selectedIds })
             .then(data => {
               this.$message({
                 message: "删除成功！",
                 type: "success"
               });
               this.getList();
+              this.getCarList();
             })
             .catch(err => {
               console.log(err, 222);
@@ -195,6 +198,22 @@ export default {
     },
     check() {
       this.$router.push("/pay");
+    },
+    getCarList() {
+      const userId = localStorage.getItem("userId");
+      http("get", `/cart/list/${userId}`).then(data => {
+        const totalPrice = data.reduce(
+          (price, product) => (price += product.price * product.add_amount),
+          0
+        );
+        const totalCount = data.reduce(
+          (count, product) => (count += product.add_amount),
+          0
+        );
+
+        this.$store.state.totalPrice = totalPrice;
+        this.$store.state.totalCount = totalCount;
+      });
     }
   }
 };

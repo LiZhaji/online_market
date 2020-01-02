@@ -105,19 +105,36 @@ export default {
       type === "down" ? this.count-- : type === "up" ? this.count++ : "";
     },
     addToCar() {
-      // const userId = localStorage.getItem("userId");
+      const userId = localStorage.getItem("userId");
       const data = {
         add_amount: this.count,
         product_id: this.product.product_id,
-        user_id: this.userId
+        user_id: userId
       };
       http("post", "/cart", data).then(data => {
         this.$message({
           message: "加入成功，在购物车等你哦！",
           type: "success"
         });
+        this.getCarList()
       });
-    }
+    } ,
+     getCarList() {
+      const userId = localStorage.getItem("userId");
+      http("get", `/cart/list/${userId}`).then(data => {
+        const totalPrice = data.reduce(
+          (price, product) => (price += product.price * product.add_amount),
+          0
+        );
+        const totalCount = data.reduce(
+          (count, product) => (count += product.add_amount),
+          0
+        );
+
+        this.$store.state.totalPrice = totalPrice
+        this.$store.state.totalCount = totalCount
+      });
+    },
   }
 };
 </script>
