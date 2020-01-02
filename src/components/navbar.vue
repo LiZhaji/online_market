@@ -24,7 +24,7 @@
               </li>
             </ul>
             <ul class="pro">
-              <li v-for="item in products">
+              <li v-if="products.length > 0" v-for="item in products">
                 <a href="#">
                   <div class="pic">
                     <img :src="baseImgUrl + item.image_url" />
@@ -194,7 +194,7 @@ export default {
     getProducts() {
       this.filter.status = this.status1 ? 1 : "";
       const data = Object.assign({}, this.filter);
-      http("post", "/product/list", data).then(res => {
+      http("post", "/product/list", data).then(data => {
         this.products = data;
       });
     },
