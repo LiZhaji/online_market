@@ -124,6 +124,7 @@
         message: "支付成功！",
         type: "success"
       });
+      this.$router.replace("/homepage");
     }
 
   }

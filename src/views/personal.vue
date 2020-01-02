@@ -80,8 +80,6 @@
         const user_id = '1';
         http("get", "/user/info/"+ user_id).then(data => {
           this.data = data;
-          console.log(data);
-
         });
       },
       editUser(){

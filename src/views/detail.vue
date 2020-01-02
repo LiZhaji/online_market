@@ -79,7 +79,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["baseImgUrl"])
+    ...mapState(["baseImgUrl",'userId'])
   },
   mounted() {
     const id = this.$route.params.id;
@@ -116,8 +116,25 @@ export default {
           message: "加入成功，在购物车等你哦！",
           type: "success"
         });
+        this.getCarList()
       });
-    }
+    } ,
+     getCarList() {
+      const userId = localStorage.getItem("userId");
+      http("get", `/cart/list/${userId}`).then(data => {
+        const totalPrice = data.reduce(
+          (price, product) => (price += product.price * product.add_amount),
+          0
+        );
+        const totalCount = data.reduce(
+          (count, product) => (count += product.add_amount),
+          0
+        );
+
+        this.$store.state.totalPrice = totalPrice
+        this.$store.state.totalCount = totalCount
+      });
+    },
   }
 };
 </script>

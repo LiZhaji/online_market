@@ -9,6 +9,7 @@ import detail from '../views/detail'
 import shopcar from "../views/shopcar";
 import personal from "../views/personal";
 import pay from "../views/pay";
+import activity from "../views/activity";
 import login from '../views/login'
 import register from '../views/register'
 import dialog from '../views/personal-dialog'
@@ -66,6 +67,11 @@ export default new Router({
     {
       path: '/personal-dialog',
       component: dialog
+    },
+    {
+      path: '/activity',
+      name: 'activity',
+      component: activity
     }
   ]
 })

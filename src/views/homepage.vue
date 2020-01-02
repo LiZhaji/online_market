@@ -1,252 +1,68 @@
 <template>
   <div>
-    <div class="hb clear">
-      <img src="../assets/img11.png" alt />
-      <a href style="z-index: 1">
-        <img src="../assets/img11.png" alt />
-      </a>
-      <a href>
-        <img src="../assets/img12.png" alt />
-      </a>
-      <a href>
-        <img src="../assets/img13.png" alt />
-      </a>
-      <ul>
-        <li class="clear"></li>
-        <li class="clear"></li>
-        <li class="clear"></li>
-      </ul>
-    </div>
-    <div class="d1">
-      <p class="p1">
-        <a href>新品推荐，精心挑选</a>
-      </p>
-      <p class="p2">家居必备实用小单品</p>
-      <div class="d11">
-        <a href="javascript:void(0)" class="zo">
-          <span><</span>
-        </a>
-        <a href="javascript:void(0)" class="yo">
-          <span>></span>
-        </a>
-        <div>
-          <ul class="ul1">
-            <li class="li11 clear">
-              <a href>
-                <img src="../assets/img21.png" alt />
-              </a>
-              <p class="p11">
-                <a href>便携简约清扫扫帚</a>
-              </p>
-              <p class="p12">
-                <a href>￥580.00</a>
-              </p>
-            </li>
-            <li class="li11 clear">
-              <a href>
-                <img src="../assets/img22.png" alt />
-              </a>
-              <p class="p11">
-                <a href>简约多拼接彩色木质积木</a>
-              </p>
-              <p class="p12">
-                <a href>￥300.00</a>
-              </p>
-            </li>
-            <li class="li11 clear">
-              <a href>
-                <img src="../assets/img23.png" alt />
-              </a>
-              <p class="p11">
-                <a href>黑陶自然花香蜡烛</a>
-              </p>
-              <p class="p12">
-                <a href>￥580.00</a>
-              </p>
-            </li>
-            <li class="li11 clear">
-              <a href>
-                <img src="../assets/img24.png" alt />
-              </a>
-              <p class="p11">
-                <a href>简约时尚水泥花瓶</a>
-              </p>
-              <p class="p12">
-                <a href>￥450.00</a>
-              </p>
-            </li>
-            <li class="li11 clear">
-              <a href>
-                <img src="../assets/img25.png" alt />
-              </a>
-              <p class="p11">
-                <a href>简约时尚水泥花瓶</a>
-              </p>
-              <p class="p12">
-                <a href>￥450.00</a>
-              </p>
-            </li>
-            <li class="li11 clear">
-              <a href>
-                <img src="../assets/img26.png" alt />
-              </a>
-              <p class="p11">
-                <a href>简约时尚水泥花瓶</a>
-              </p>
-              <p class="p12">
-                <a href>￥450.00</a>
-              </p>
-            </li>
-            <li class="li14 clear">
-              <a href>
-                <img src="../assets/img27.png" alt />
-              </a>
-              <p class="p11">
-                <a href>简约时尚水泥花瓶</a>
-              </p>
-              <p class="p12">
-                <a href>￥450.00</a>
-              </p>
-            </li>
-          </ul>
+    <!-- 精选 -->
+    <el-carousel indicator-position="outside">
+      <el-carousel-item v-for="(item,i) in cullingActivities[0].prduct_list" :key="i">
+        <div class="carousel">
+          <img @click="detail(item.product_id)" :src="baseImgUrl + item.image_url" />
         </div>
-        <ul class="ul2"></ul>
-      </div>
-    </div>
+      </el-carousel-item>
+    </el-carousel>
+    <!-- 秒杀 -->
+    <!-- <div class="d1">
+      <p class="p1">
+        <a>{{secKillActivicities[0].activity_name}}</a>
+      </p>
+      <p class="p2">{{secKillActivicities[0].description}}</p>
+      <el-carousel :interval="40000" type="card" height="500px">
+        <el-carousel-item v-for="(item,i) in secKillActivicities[0].prduct_list" :key="i">
+          <div class="carousel">
+            <img :src="baseImgUrl + item.image_url" />
+            <p class="p11">{{item.product_name}}</p>
+            <p class="p12">￥{{item.price}}</p>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
+    </div>-->
+    <!-- 促销 -->
     <div class="d2">
       <p class="p1">
-        <a href>专题活动，限时促销</a>
+        <a>{{promotionActivities[0].activity_name}}</a>
       </p>
-      <p class="p2">严选材质，用心设计，精致家具生活</p>
-      <div class="d21">
-        <a href class="a21">
-          <img src="../assets/img31.jpg" alt class="img21" />
-        </a>
-        <a href class="a22">
-          <img src="../assets/img32.jpg" alt class="img22" />
-        </a>
-        <a href class="a23">
-          <img src="../assets/img33.jpg" alt class="img23" />
-        </a>
-      </div>
-    </div>
-    <div class="d3">
-      <p class="p1">
-        <a href>青竹良品，你的家具首选</a>
-      </p>
-      <p class="p2">天然之源，诚挚之礼，严格质检</p>
-      <div class="d31">
-        <div>
-          <a href="#">
-            <img src="../assets/img40.jpg" alt class="img30" />
-          </a>
-          <ul class="ul31">
-            <li>
-              <a href="#">
-                <img src="../assets/img41.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>简约时尚水泥花瓶</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥450.00</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="../assets/img42.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>黑陶自然花香蜡烛</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥580.00</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="../assets/img43.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>黑陶器具</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥450.00</p>
-              </a>
-            </li>
-            <li class="img32">
-              <a href="#">
-                <img src="../assets/img44.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>简单大容量瓷碗</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥150.00</p>
-              </a>
-            </li>
-          </ul>
+      <p class="p2">{{promotionActivities[0].description}}</p>
+      <div class="d21" @click="toActicity">
+        <div class="a21 imgOuter">
+          <img :src="baseImgUrl + promotionImgs[0]" alt class="img21" />
         </div>
-        <div>
-          <a href="#">
-            <img src="../assets/img45.jpg" alt class="img30" />
-          </a>
-          <ul class="ul32">
-            <li>
-              <a href="#">
-                <img src="../assets/img46.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>简约时尚水泥花瓶</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥450.00</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="../assets/img47.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>黑陶自然花香蜡烛</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥580.00</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="../assets/img48.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>黑陶器具</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥450.00</p>
-              </a>
-            </li>
-            <li class="img32">
-              <a href="#">
-                <img src="../assets/img49.png" alt class="img31" />
-              </a>
-              <a href="#" class="w31">
-                <p>简单大容量瓷碗</p>
-              </a>
-              <a href="#" class="w32">
-                <p>￥150.00</p>
-              </a>
-            </li>
-          </ul>
+        <div class="a22 imgOuter">
+          <img :src="baseImgUrl + promotionImgs[1] " alt class="img22" />
+        </div>
+        <div class="a23 imgOuter">
+          <img :src="baseImgUrl + promotionImgs[2] " alt class="img23" />
         </div>
       </div>
     </div>
+    <!-- 预div告 -->
     <div class="d4">
       <p class="p1">
-        <a href>全球大牌优选，买手用心挑选</a>
+        <!-- <a href>全球大牌优选，买手用心挑选</a> -->
+        <a href>活动预告，好货等你挑</a>
       </p>
-      <p class="p2">全球好货 原装正品 海外直邮 自有保税仓</p>
+      <p class="p2">全球好货 原装正品 海外直邮</p>
       <div class="d41">
-        <a href class="img41">
+        <div
+          v-for="item in willStartActivities"
+        >
+          <p style="font-size:24px;margin-top:30px">{{item.activity_name}}</p>
+          <p style="font-size:16px">{{item.description}}</p>
+          <p>
+            <span style="color: #e61d1d; font-size: 22px">{{item.start_time}}</span> ~
+          </p>
+          <p>
+            <span style="color: #e61d1d; font-size: 22px">{{item.end_time}}</span>
+          </p>敬请期待
+        </div>
+        <!-- <a href class="img41">
           <img src="../assets/img51.jpg" alt />
         </a>
         <a href class="img42">
@@ -257,13 +73,13 @@
         </a>
         <a href class="img44">
           <img src="../assets/img53.jpg" alt />
-        </a>
+        </a>-->
       </div>
-      <div class="d42">
+      <!-- <div class="d42">
         <ul class="ul43">
           <li class="li41">
             <div>
-              <a href="#">        
+              <a href="#">
                 <img src="../assets/img55.png" alt />
               </a>
             </div>
@@ -312,9 +128,9 @@
             </p>
           </li>
         </ul>
-      </div>
+      </div>-->
     </div>
-    <div class="d5">
+    <!-- <div class="d5">
       <p class="p1">
         <a href>良品体验</a>
       </p>
@@ -393,15 +209,91 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
-export default {};
+import fetch from "../http/index";
+import { mapState } from "vuex";
+
+export default {
+  data() {
+    return {
+      willStartActivities: [], // 未开始
+      cullingActivities: [{}], // 进行中-精选
+      promotionActivities: [{}], // 进行中-促销
+      promotionImgs: [],
+      secKillActivicities: [{}] // 进行中-秒杀
+    };
+  },
+  computed: {
+    ...mapState(["baseImgUrl"])
+  },
+  mounted() {
+    // 未开始活动
+    fetch("get", "/activity/status/1").then(data => {
+      this.willStartActivities = data;
+    });
+    // 进行中的活动
+    fetch("get", "/activity/status/2").then(data => {
+      this.cullingActivities = this.handleData(data, 1);
+      this.promotionActivities = this.handleData(data, 2);
+      this.secKillActivicities = this.handleData(data, 3);
+      this.promotionImgs =
+        this.promotionActivities[0].prduct_list.map(prot => prot.image_url) ||
+        [];
+    });
+  },
+  methods: {
+    detail(id) {
+      this.$router.push({ name: "detail", params: { id } });
+    },
+    toActicity() {
+      const id = this.promotionActivities[0].activity_id;
+      const name = this.promotionActivities[0].activity_name;
+      this.$router.push({ name: "activity", params: { id, name } });
+    },
+    handleData(data, type) {
+      const temp = data.filter(ac => ac.activity_type === type);
+      return temp.length === 0
+        ? [{ activity_name: "暂无活动，敬请期待" }]
+        : temp;
+    }
+  }
+};
 </script>
 
-<style>
+<style scoped>
+.carousel {
+  text-align: center;
+  cursor: pointer;
+}
+.carousel img {
+  /* min-width: 500px; */
+  max-width: 100%;
+  max-height: 400px;
+}
+.carousel .p11 {
+  margin-top: 21px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(51, 51, 51);
+  line-height: 20px;
+}
+.carousel .p12 {
+  color: rgb(219, 46, 46);
+  font-size: 14px;
+  line-height: 20px;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d4d4d459;
+}
 .hb {
   margin-top: 68px;
   position: relative;
@@ -445,7 +337,6 @@ export default {};
 }
 .d1 {
   width: 100%;
-  height: 496px;
   padding-top: 50px;
 }
 .p1 a {
@@ -480,18 +371,8 @@ export default {};
   line-height: 40px;
   color: rgb(200, 200, 200);
 }
-.d11 > .zo {
-  display: block;
-  top: 25%;
-  left: 50px;
-}
 .d11 > a > span:hover {
   color: rgb(153, 153, 153);
-}
-.d11 > .yo {
-  display: block;
-  top: 25%;
-  left: 1280px;
 }
 .d11 > div {
   width: 1140px;
@@ -511,36 +392,19 @@ export default {};
   width: 275px;
   height: 275px;
 }
-.d11 ul .p11 a {
-  font-size: 14px;
-  text-decoration: none;
-  font-weight: bold;
-  color: rgb(51, 51, 51);
-  line-height: 20px;
-}
-.d11 ul .p11 {
-  margin-top: 21px;
-  margin-bottom: 4px;
-}
-.d11 ul .p12 a {
-  text-decoration: none;
-  color: rgb(219, 46, 46);
-  font-size: 14px;
-  line-height: 20px;
-}
 .a21 img {
   width: 680px;
-  height: 380px;
+  /* height: 380px; */
 }
 .a22 img {
   width: 450px;
-  height: 185px;
+  /* height: 185px; */
 }
 .a23 img {
   width: 450px;
-  height: 185px;
+  /* height: 185px; */
 }
-.d21 > a {
+.d21 > .imgOuter {
   float: left;
   overflow: hidden;
 }
@@ -646,7 +510,7 @@ li {
 }
 .d4 {
   width: 100%;
-  height: 626px;
+  height: 526px;
   padding-top: 50px;
 }
 .d4 .d41 {
@@ -655,7 +519,21 @@ li {
   margin: 0 auto;
   margin-top: 23px;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
+.d4 .d41 > div {
+  width: 400px;
+  box-shadow: 0 2px 4px #00000012;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: #d4d4d459;
+}
+.d4 .d41 p {
+  margin: 10px;
+}
+
 .img41 {
   position: absolute;
   left: 0;

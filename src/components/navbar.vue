@@ -56,26 +56,32 @@
           <router-link to="/article">文章列表</router-link>
         </li>
       </ul>
-      <a href="#" class="search"></a>
+      <!-- <a href="#" class="search"></a> -->
       <div class="reg">
-        <div class="reg_c">
+        <div v-if="needLogin" class="reg_c">
           <router-link to="/login">登录</router-link>
           <span>&nbsp;|&nbsp;</span>
           <router-link to="/register">注册</router-link>
         </div>
-        <div class="ico">
-          <span class="ico_c" @click="toShopcar"></span>
-          <div class="settle">
-            <p class="con">
-              {{totalCount}}件商品 共计：
-              <span>￥{{totalPrice}}</span>
-            </p>
-            <a class="btn" @click="$router.push('/pay')">结算</a>
+        <div v-if="!needLogin" class="info">
+          <div class="ico">
+            <span class="ico_c" @click="toShopcar"></span>
+            <div class="settle">
+              <p class="con">
+                {{totalCount}}件商品 共计：
+                <span>￥{{totalPrice}}</span>
+              </p>
+              <a class="btn" @click="$router.push('/pay')">结算</a>
+            </div>
+          </div>
+          <div>
+            {{nickname}}
+            <span @click="loginout" style="color: #229ac1;cursor:pointer;margin-left:10px;">退出</span>
           </div>
           <span class="con">0</span>
         </div>
         <div class="avatar">
-          <img src="../assets/h144.jpeg" alt="avatar"  />
+          <img src="../assets/h144.jpeg" alt="avatar" @click="$router.push('/personal')" />
         </div>
       </div>
     </div>
@@ -104,29 +110,37 @@ export default {
         status: ""
       },
       products: [],
-      totalPrice: 0,
-      totalCount: 0
     };
   },
   computed: {
-    ...mapState(["baseImgUrl"])
+    ...mapState(["baseImgUrl", "nickname", "needLogin",'userId','totalPrice','totalCount'])
   },
   mounted() {
     this.getCategory(0, 0);
-    this.getCarList()
+    this.getCarList();
   },
   methods: {
+    loginout() {
+      this.$store.state.needLogin = true;
+      localStorage.setItem("needLogin", true);
+      this.$store.state.nickname = '';
+      localStorage.setItem("nickname", '');
+      this.$router.push('./login')
+    },
     getCarList() {
       const userId = localStorage.getItem("userId");
       http("get", `/cart/list/${userId}`).then(data => {
-        this.totalPrice = data.reduce(
+        const totalPrice = data.reduce(
           (price, product) => (price += product.price * product.add_amount),
           0
         );
-        this.totalCount = data.reduce(
+        const totalCount = data.reduce(
           (count, product) => (count += product.add_amount),
           0
         );
+
+        this.$store.state.totalPrice = totalPrice
+        this.$store.state.totalCount = totalCount
       });
     },
     getCategory(curLevel, item) {
@@ -202,6 +216,9 @@ export default {
 .header .header_c .allType .dd_inn .dd_cont li span.checked {
   color: #b98246;
 }
+.info {
+  display: flex;
+}
 /* 公共类，设置页面的版心 */
 
 .inner_c {
@@ -239,6 +256,7 @@ routerLink {
   left: 50%;
   margin-top: -26px;
   margin-left: -69px;
+  cursor: pointer;
 }
 .header {
   width: 100%;
@@ -373,7 +391,8 @@ routerLink {
   height: 26px;
   background: url(../assets/0.png);
   vertical-align: middle;
-  margin-left: 10px;
+  margin: 0 10px;
+  cursor: pointer;
 }
 .header .header_c .reg .con {
   font-weight: bold;
