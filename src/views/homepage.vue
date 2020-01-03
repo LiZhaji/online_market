@@ -1,13 +1,14 @@
 <template>
   <div>
     <!-- 精选 -->
-    <el-carousel indicator-position="outside">
+    <el-carousel v-if="cullingActivities.length > 0" indicator-position="outside">
       <el-carousel-item v-for="(item,i) in cullingActivities[0].prduct_list" :key="i">
         <div class="carousel">
           <img @click="detail(item.product_id)" :src="baseImgUrl + item.image_url" />
         </div>
       </el-carousel-item>
     </el-carousel>
+    <div v-if="cullingActivities.length === 0" 暂无精选活动，敬请期待！></div>
     <!-- 秒杀 -->
     <!-- <div class="d1">
       <p class="p1">
@@ -37,9 +38,9 @@
         <div class="a22 imgOuter">
           <img :src="baseImgUrl + promotionImgs[1] " alt class="img22" />
         </div>
-        <div class="a23 imgOuter">
+        <!-- <div class="a23 imgOuter">
           <img :src="baseImgUrl + promotionImgs[2] " alt class="img23" />
-        </div>
+        </div>-->
       </div>
     </div>
     <!-- 预div告 -->
@@ -50,9 +51,7 @@
       </p>
       <p class="p2">全球好货 原装正品 海外直邮</p>
       <div class="d41">
-        <div
-          v-for="item in willStartActivities"
-        >
+        <div v-for="item in willStartActivities">
           <p style="font-size:24px;margin-top:30px">{{item.activity_name}}</p>
           <p style="font-size:16px">{{item.description}}</p>
           <p>
@@ -244,6 +243,7 @@ export default {
         this.promotionActivities[0].prduct_list.map(prot => prot.image_url) ||
         [];
     });
+    
   },
   methods: {
     detail(id) {
@@ -414,7 +414,7 @@ export default {
 }
 .a22 {
   width: 450px;
-  height: 185px;
+  /* height: 185px; */
   position: absolute;
   top: 0;
   right: 0;

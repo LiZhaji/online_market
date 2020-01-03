@@ -44,11 +44,7 @@
         <span class="header-title">确认订单信息</span>
       </div>
       <div class="dtrolley">
-        <el-table
-          ref="multipleTable"
-          :data="tableData"
-          style="width: 100%"
-        >
+        <el-table ref="multipleTable" :data="tableData" style="width: 100%">
           <el-table-column label="商品名称">
             <template slot-scope="scope">
               <img :src="baseImgUrl + scope.row.image_url" alt />
@@ -56,14 +52,12 @@
             </template>
           </el-table-column>
           <el-table-column prop="price" label="商品单价(元)"></el-table-column>
-          <el-table-column label="数量" width="160" prop="add_amount"  show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column label="小计(元)" show-overflow-tooltip >
+          <el-table-column label="数量" width="160" prop="add_amount" show-overflow-tooltip></el-table-column>
+          <el-table-column label="小计(元)" show-overflow-tooltip>
             <template slot-scope="scope">{{scope.row.price * scope.row.add_amount}}</template>
           </el-table-column>
         </el-table>
       </div>
-
     </div>
     <div class="end">
       <div class="realpay">
@@ -93,16 +87,16 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
-  export default {
-  data(){
-    return{
-      tableData:[],
+import { mapState } from "vuex";
+import fetch from "../http/index";
+export default {
+  data() {
+    return {
+      tableData: [],
       radio: 1,
-      pay_method: '1',
-      sum: 0,
-
-    }
+      pay_method: "1",
+      sum: 0
+    };
   },
   computed: {
     ...mapState(["baseImgUrl"])
@@ -110,33 +104,55 @@
   mounted() {
     this.init();
   },
-  methods:{
+  methods: {
     init() {
-        if (this.$route.hasOwnProperty('query') && this.$route.query.hasOwnProperty('data')) {
-          this.tableData = this.$route.query.data;
-          this.tableData.forEach((item)=>{
-            this.sum += item.price * item.add_amount
-          })
-        }
+      if (
+        this.$route.hasOwnProperty("query") &&
+        this.$route.query.hasOwnProperty("data")
+      ) {
+        this.tableData = this.$route.query.data;
+        console.log(this.tableData,99);
+        
+        this.tableData.forEach(item => {
+          this.sum += item.price * item.add_amount;
+        });
+      }
     },
-    submit(){
-      this.$message({
-        message: "支付成功！",
-        type: "success"
+    submit() {
+      const address = [
+        "浙江省 杭州市 西湖区 翠苑街道 翠苑新村2区2幢2单元",
+        "浙江省 杭州市 江干区 浙江理工大学",
+        "浙江省 杭州市 江干区 浙江理工大学生活二区"
+      ];
+      const data = {
+        address: address[this.radio - 1],
+        order_product_list: this.tableData.map(item => {
+          return {
+            cart_id: item.id,
+            product_id: item.product_id,
+            amount: item.add_amount
+          }
+        }),
+        pay_method: this.pay_method,
+        user_id: localStorage.getItem("userId")
+      };
+      fetch("post", '/order',data).then(data => {
+        this.$message({
+          message: "支付成功！",
+          type: "success"
+        });
+        this.$router.replace("/homepage");
       });
-      this.$router.replace("/homepage");
     }
-
   }
-
 };
 </script>
 
 <style>
-  .dtrolley img {
-    width: 60px;
-    height: 60px;
-  }
+.dtrolley img {
+  width: 60px;
+  height: 60px;
+}
 .clearfix::after {
   content: "";
   display: block;
