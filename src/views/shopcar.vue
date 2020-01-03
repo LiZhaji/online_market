@@ -86,7 +86,8 @@ export default {
       tableData: [],
       selectedProduct: [],
       totalPrice: 0,
-      totalCount: 0
+      totalCount: 0,
+      selectedData:[]
     };
   },
   computed: {
@@ -134,6 +135,7 @@ export default {
         };
       });
       this.selectedProduct = data;
+      this.selectedData = val;
       this.totalPrice = val.reduce(
         (price, product) => (price += product.price * product.add_amount),
         0
@@ -142,7 +144,6 @@ export default {
         (count, product) => (count += product.add_amount),
         0
       );
-      console.log(val);
     },
     delProduct(product) {
       this.$confirm("确定从购物车删除该商品吗?", "提示", {
@@ -199,7 +200,7 @@ export default {
     check() {
       this.$router.push({
         name:'pay',
-        query:{data:this.tableData}})
+        query:{data:this.selectedData}})
     },
     getCarList(){
       const userId = localStorage.getItem("userId");
