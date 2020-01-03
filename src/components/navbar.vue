@@ -71,11 +71,11 @@
                 {{totalCount}}件商品 共计：
                 <span>￥{{totalPrice}}</span>
               </p>
-              <a class="btn" @click="$router.push('/pay')">结算</a>
+              <a class="btn" @click="$router.push({name:'pay',query:{data:dataList}})">结算</a>
             </div>
           </div>
           <div>
-            <span @click="$router.push('/personal')" style="cursor:pointer;">{{nickname}}</span> 
+            <span @click="$router.push('/personal')" style="cursor:pointer;">{{nickname}}</span>
             <span @click="loginout" style="color: #229ac1;cursor:pointer;margin-left:10px;">退出</span>
           </div>
         </div>
@@ -106,6 +106,7 @@ export default {
         status: ""
       },
       products: [],
+      dataList: [],
     };
   },
   computed: {
@@ -126,6 +127,7 @@ export default {
     getCarList() {
       const userId = localStorage.getItem("userId");
       http("get", `/cart/list/${userId}`).then(data => {
+        this.dataList = data;
         const totalPrice = data.reduce(
           (price, product) => (price += product.price * product.add_amount),
           0
